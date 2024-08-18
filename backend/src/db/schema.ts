@@ -48,6 +48,20 @@ export const chats = pgTable("chats", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const images = pgTable("images", {
+  id: serial("id").primaryKey(),
+  senderId: integer("sender_id")
+    .references(() => users.id)
+    .notNull(),
+  receiverId: integer("receiver_id")
+    .references(() => users.id)
+    .notNull(),
+  imageURL: text("imageURL").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+
+
 export const groups = pgTable("groups", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 100 }).notNull(),
